@@ -20,19 +20,28 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-      default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: ${ALLOWED_ORIGINS:*}
-            allowedHeaders: "*"
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - PATCH
+      routes:
+        - id: inventory
+          uri: lb://${INVENTORY_NAME}
+          predicates:
+            - Path=/api/inventory/**
+        - id: products
+          uri: lb://${INVENTORY_NAME}
+          predicates:
+            - Path=/api/products/**
+        - id: stockware
+          uri: lb://${INVENTORY_NAME}
+          predicates:
+            - Path=/api/stockware/**
+        - id: warehouse
+          uri: lb://${INVENTORY_NAME}
+          predicates:
+            - Path=/api/warehouse/**
+        - id: authentication
+          uri: lb://msvc-authentication
+          predicates:
+            - Path=/auth/**
+
 
 management:
   endpoints:
