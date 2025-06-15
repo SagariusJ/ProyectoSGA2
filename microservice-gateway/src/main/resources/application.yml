@@ -2,9 +2,10 @@ eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: http://msvc-eureka:8761/eureka
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
   instance:
-    prefer-ip-address: true
+    preferIpAddress: true
+    hostname: ${HOSTNAME:localhost}
 server:
   port: ${PORT:8080}
 
@@ -16,37 +17,26 @@ spring:
       discovery:
         locator:
           enabled: true
-      routes:
-        - id: inventory
-          uri: lb://msvc-inventory
-          predicates:
-            - Path=/api/inventory/**
-        - id: products
-          uri: lb://msvc-inventory
-          predicates:
-            - Path=/api/products/**
-        - id: stockware
-          uri: lb://msvc-inventory
-          predicates:
-            - Path=/api/stockware/**
-        - id: warehouse
-          uri: lb://msvc-inventory
-          predicates:
-            - Path=/api/warehouse/**
-        - id: authentication
-          uri: lb://msvc-authentication
-          predicates:
-            - Path=/auth/**
+          lower-case-service-id: true
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors: ## CORS Configuration
+        cors-configurations:
+          '[/**]': ## For all routes
+            allowedOrigins: ${ALLOWED_ORIGINS:*} # With '*' we allow all origins. We can restrict by indicating domains or ip + port, e.g. http://localhost:3000 (where our front is, or a Vercel domain)
+            allowedHeaders: "*" ## All headers allowed
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
 
 management:
+  endpoint:
+    gateway:
+      enabled: ${ROUTE_TABLES_ENABLED:true}
   endpoints:
     web:
       exposure:
         include: health,info,prometheus
-  endpoint:
-    prometheus:
-      enabled: true
-  metrics:
-    export:
-      prometheus:
-        enabled: true

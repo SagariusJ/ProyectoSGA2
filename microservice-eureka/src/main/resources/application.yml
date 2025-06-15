@@ -10,17 +10,10 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
   instance:
-    prefer-ip-address: true
+    hostname: ${EUREKA_HOST:localhost}
 
 management:
   endpoints:
     web:
       exposure:
         include: health,info,prometheus
-  endpoint:
-    prometheus:
-      enabled: true
-  metrics:
-    export:
-      prometheus:
-        enabled: true
