@@ -22,19 +22,19 @@ spring:
           lower-case-service-id: true
       routes:
         - id: inventory
-          uri: lb://microservice-inventory
+          uri: lb://${INVENTORY_NAME}
           predicates:
             - Path=/api/inventory/**
         - id: products
-          uri: lb://microservice-inventory
+          uri: lb://${INVENTORY_NAME}
           predicates:
             - Path=/api/products/**
         - id: stockware
-          uri: lb://microservice-inventory
+          uri: lb://${INVENTORY_NAME}
           predicates:
             - Path=/api/stockware/**
         - id: warehouse
-          uri: lb://microservice-inventory
+          uri: lb://${INVENTORY_NAME}
           predicates:
             - Path=/api/warehouse/**
         - id: authentication
