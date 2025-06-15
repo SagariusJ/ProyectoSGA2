@@ -22,19 +22,19 @@ spring:
           lower-case-service-id: true
       routes:
         - id: inventory
-          uri: microservice-inventory-production.up.railway.app
+          uri: https://microservice-inventory-production.up.railway.app
           predicates:
             - Path=/api/inventory/**
         - id: products
-          uri: microservice-inventory-production.up.railway.app
+          uri: https://microservice-inventory-production.up.railway.app
           predicates:
             - Path=/api/products/**
         - id: stockware
-          uri: microservice-inventory-production.up.railway.app
+          uri: https://microservice-inventory-production.up.railway.app
           predicates:
             - Path=/api/stockware/**
         - id: warehouse
-          uri: microservice-inventory-production.up.railway.app
+          uri: https://microservice-inventory-production.up.railway.app
           predicates:
             - Path=/api/warehouse/**
         - id: authentication
