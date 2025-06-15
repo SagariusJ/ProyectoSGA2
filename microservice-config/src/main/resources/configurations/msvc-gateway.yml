@@ -2,7 +2,7 @@ eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: http://proyectosga-eureka.onrender.com/eureka/
+      defaultZone: http://msvc-eureka:8761/eureka
   instance:
     prefer-ip-address: true
 server:
