@@ -2,7 +2,7 @@ eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: https://msvc-eureka-production-347c.up.railway.app/eureka
+      defaultZone: https://eureka.railway.internal:8080/eureka
   instance:
     prefer-ip-address: true
 server:
