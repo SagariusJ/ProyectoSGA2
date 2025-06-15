@@ -5,7 +5,6 @@ eureka:
   instance:
     preferIpAddress: true
     hostname: ${HOSTNAME:localhost}
-
   client:
     registerWithEureka: true
     fetchRegistry: true
@@ -21,34 +20,34 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-        routes:
-          - id: inventory
-            uri: lb://msvc-inventory
-            predicates:
-              - Path=/api/inventory/**
-          - id: products
-            uri: lb://msvc-inventory
-            predicates:
-              - Path=/api/products/**
-          - id: stockware
-            uri: lb://msvc-inventory
-            predicates:
-              - Path=/api/stockware/**
-          - id: warehouse
-            uri: lb://msvc-inventory
-            predicates:
-              - Path=/api/warehouse/**
-          - id: authentication
-            uri: lb://msvc-authentication
-            predicates:
-              - Path=/auth/**
+      routes:  # 👈 Esta sección va aquí, no dentro de `locator`
+        - id: inventory
+          uri: lb://msvc-inventory
+          predicates:
+            - Path=/api/inventory/**
+        - id: products
+          uri: lb://msvc-inventory
+          predicates:
+            - Path=/api/products/**
+        - id: stockware
+          uri: lb://msvc-inventory
+          predicates:
+            - Path=/api/stockware/**
+        - id: warehouse
+          uri: lb://msvc-inventory
+          predicates:
+            - Path=/api/warehouse/**
+        - id: authentication
+          uri: lb://msvc-authentication
+          predicates:
+            - Path=/auth/**
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
-      globalcors: ## CORS Configuration
+      globalcors:  ## CORS Configuration
         cors-configurations:
-          '[/**]': ## For all routes
-            allowedOrigins: ${ALLOWED_ORIGINS:*} # With '*' we allow all origins. We can restrict by indicating domains or ip + port, e.g. http://localhost:3000 (where our front is, or a Vercel domain)
-            allowedHeaders: "*" ## All headers allowed
+          '[/**]':
+            allowedOrigins: ${ALLOWED_ORIGINS:*}
+            allowedHeaders: "*"
             allowedMethods:
               - GET
               - POST
