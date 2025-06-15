@@ -20,27 +20,6 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-      routes:  # 👈 Esta sección va aquí, no dentro de `locator`
-        - id: inventory
-          uri: lb://microservice-inventory
-          predicates:
-            - Path=/api/inventory/**
-        - id: products
-          uri: lb://microservice-inventory
-          predicates:
-            - Path=/api/products/**
-        - id: stockware
-          uri: lb://microservice-inventory
-          predicates:
-            - Path=/api/stockware/**
-        - id: warehouse
-          uri: lb://microservice-inventory
-          predicates:
-            - Path=/api/warehouse/**
-        - id: authentication
-          uri: lb://msvc-authentication
-          predicates:
-            - Path=/auth/**
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       globalcors:  ## CORS Configuration
@@ -58,7 +37,8 @@ spring:
 management:
   endpoint:
     gateway:
-      access: unrestricted
+      gateway:
+        enabled: ${ROUTE_TABLES_ENABLED:true}
   endpoints:
     web:
       exposure:
