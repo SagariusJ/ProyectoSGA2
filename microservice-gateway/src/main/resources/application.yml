@@ -38,8 +38,9 @@ spring:
 management:
   endpoint:
     gateway:
-      enabled: ${ROUTE_TABLES_ENABLED:true}
+      access: unrestricted
   endpoints:
     web:
       exposure:
-        include: health,info,prometheus
+        include:
+          - '*'
