@@ -35,12 +35,10 @@ spring:
               - PATCH
 
 management:
-  endpoint:
-    gateway:
-      gateway:
-        enabled: ${ROUTE_TABLES_ENABLED:true}
   endpoints:
     web:
       exposure:
-        include:
-          - '*'
+        include: '*'
+  endpoint:
+    gateway:
+      enabled: ${ROUTE_TABLES_ENABLED:true}
