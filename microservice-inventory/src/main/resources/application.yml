@@ -1,5 +1,32 @@
+server:
+  port: ${PORT:8090}
+
 spring:
   application:
     name: msvc-inventory
-  config:
-    import: optional:configserver:http://microservice-config:8888
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://postgres-db:5432/inventorydb
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+eureka:
+  instance:
+    hostname: msvc-inventory
+  client:
+    service-url:
+      defaultZone: http://msvc-eureka:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true

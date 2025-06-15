@@ -10,9 +10,11 @@
         <module name="microservice-gateway" />
         <module name="microservice-inventory" />
         <module name="microservice-eureka" />
-        <module name="microservice-config" />
         <module name="microservice-authentication" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="microservice-config" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

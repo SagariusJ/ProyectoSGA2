@@ -1,5 +1,26 @@
+server:
+  port: ${PORT:8761}
+
 spring:
   application:
     name: msvc-eureka
-  config:
-    import: optional:configserver:http://microservice-config:8888
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
