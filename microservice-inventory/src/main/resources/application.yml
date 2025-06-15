@@ -3,12 +3,12 @@ server:
 
 spring:
   application:
-    name: msvc-inventory
+    name: ${SPRING_APPLICATION_NAME}
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://postgres-db:5432/inventorydb
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,11 +16,11 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 eureka:
-  instance:
-    hostname: msvc-inventory
+  preferIpAddress: true
+  hostname: ${HOSTNAME:localhost}
   client:
     service-url:
-      defaultZone: http://msvc-eureka:8761/eureka
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
 
 management:
   endpoints:
