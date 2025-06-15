@@ -6,7 +6,7 @@ eureka:
   instance:
     prefer-ip-address: true
 server:
-  port: 8080
+  port: ${PORT}
 
 spring:
   application:
