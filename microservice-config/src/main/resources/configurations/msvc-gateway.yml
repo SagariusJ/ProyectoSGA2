@@ -2,11 +2,11 @@ eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: https://eureka.railway.internal:8080/eureka
+      defaultZone: http://msvc-eureka:8761/eureka
   instance:
     prefer-ip-address: true
 server:
-  port: ${PORT}
+  port: ${PORT:8080}
 
 spring:
   application:
