@@ -15,7 +15,7 @@ public class CorsGlobalConfiguration {
         CorsConfiguration corsConfig = new CorsConfiguration();
 
         // Orígenes permitidos — aquí colocas el URL de tu frontend Angular
-        corsConfig.addAllowedOrigin("http://localhost:4200");
+        corsConfig.addAllowedOrigin("https://proyectosgafront-production.up.railway.app");
 
         // Métodos permitidos (GET, POST, PUT, DELETE, etc.)
         corsConfig.addAllowedMethod("*");
