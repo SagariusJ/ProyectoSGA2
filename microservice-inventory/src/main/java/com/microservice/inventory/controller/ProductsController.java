@@ -52,7 +52,7 @@ public class ProductsController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestBody Products productDetails) {
+    public ResponseEntity<?> updateProduct(@PathVariable("id") Long id, @RequestBody Products productDetails) {
         System.out.println("Update request for ID: " + id);
         System.out.println("Payload: " + productDetails);
 
