@@ -26,12 +26,12 @@ public class StockWareController {
     }
 
     @GetMapping("/search/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(stockWareService.findById(id));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteStockWare(@PathVariable Long id) {
+    public ResponseEntity<?> deleteStockWare(@PathVariable("id") Long id) {
         StockWare existingStockWare = stockWareService.findById(id);
         if (existingStockWare == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("StockWare with ID " + id + " not found");
@@ -41,7 +41,7 @@ public class StockWareController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateStockWare(@PathVariable Long id, @RequestBody StockWare stockWareDetails) {
+    public ResponseEntity<?> updateStockWare(@PathVariable("id") Long id, @RequestBody StockWare stockWareDetails) {
         StockWare existingStockWare = stockWareService.findById(id);
         if (existingStockWare == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("StockWare with ID " + id + " not found");

@@ -26,12 +26,12 @@ public class WarehouseController {
     }
 
     @GetMapping("/search/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(warehouseService.findById(id));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteWarehouse(@PathVariable Long id) {
+    public ResponseEntity<?> deleteWarehouse(@PathVariable("id") Long id) {
         Warehouse existingWarehouse = warehouseService.findById(id);
         if (existingWarehouse == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Warehouse with ID " + id + " not found");
@@ -41,7 +41,7 @@ public class WarehouseController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateWarehouse(@PathVariable Long id, @RequestBody Warehouse warehouseDetails) {
+    public ResponseEntity<?> updateWarehouse(@PathVariable("id") Long id, @RequestBody Warehouse warehouseDetails) {
         Warehouse existingWarehouse = warehouseService.findById(id);
         if (existingWarehouse == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Warehouse with ID " + id + " not found");

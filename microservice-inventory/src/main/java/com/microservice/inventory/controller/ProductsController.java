@@ -26,7 +26,7 @@ public class ProductsController {
     }
 
     @GetMapping("/search/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(productsService.findById(id));
     }
 

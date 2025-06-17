@@ -27,12 +27,12 @@ public class InventoryController {
     }
 
     @GetMapping("/search/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(inventoryService.findById(id));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteInventory(@PathVariable Long id) {
+    public ResponseEntity<?> deleteInventory(@PathVariable("id") Long id) {
         Inventory existingInventory = inventoryService.findById(id);
         if (existingInventory == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Inventory with ID " + id + " not found");
@@ -43,7 +43,7 @@ public class InventoryController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateInventory(@PathVariable Long id, @RequestBody Inventory inventoryDetails) {
+    public ResponseEntity<?> updateInventory(@PathVariable("id") Long id, @RequestBody Inventory inventoryDetails) {
         Inventory existingInventory = inventoryService.findById(id);
         if (existingInventory == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Inventory with ID " + id + " not found");
