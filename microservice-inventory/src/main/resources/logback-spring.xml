@@ -1,0 +1,16 @@
+<configuration>
+    <appender name="LOKI" class="com.github.loki4j.logback.LokiAppender">
+        <url>${LOKI_URL}</url>
+        <batchSize>100</batchSize>
+        <batchWait>1000</batchWait>
+        <encoding>json</encoding>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="LOKI" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>
