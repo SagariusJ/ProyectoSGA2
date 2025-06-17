@@ -31,7 +31,7 @@ public class ProductsController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id) {
         Products existingProduct = productsService.findById(id);
         if (existingProduct == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product with ID " + id + " not found");
