@@ -40,6 +40,17 @@ public class ProductsController {
         return ResponseEntity.ok("Product with ID " + id + " deleted successfully");
     }
 
+    @ExceptionHandler(NumberFormatException.class)
+    public ResponseEntity<?> handleNumberFormat(NumberFormatException ex) {
+        return ResponseEntity.badRequest().body("ID inválido. Debe ser un número.");
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<?> handleRuntime(RuntimeException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Error en el servidor: " + ex.getMessage());
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestBody Products productDetails) {
         Products existingProduct = productsService.findById(id);
