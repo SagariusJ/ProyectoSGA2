@@ -53,18 +53,28 @@ public class ProductsController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestBody Products productDetails) {
+        System.out.println("Update request for ID: " + id);
+        System.out.println("Payload: " + productDetails);
+
         Products existingProduct = productsService.findById(id);
         if (existingProduct == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product with ID " + id + " not found");
         }
 
-        existingProduct.setProduct_name(productDetails.getProduct_name());
-        existingProduct.setDescription(productDetails.getDescription());
-        existingProduct.setType(productDetails.getType());
-        existingProduct.setMeasure_unit(productDetails.getMeasure_unit());
+        try {
+            existingProduct.setProduct_name(productDetails.getProduct_name());
+            existingProduct.setDescription(productDetails.getDescription());
+            existingProduct.setType(productDetails.getType());
+            existingProduct.setMeasure_unit(productDetails.getMeasure_unit());
 
-        productsService.save(existingProduct);
-
-        return ResponseEntity.ok(existingProduct);
+            Products updated = productsService.save(existingProduct);
+            System.out.println("Updated product: " + updated);
+            return ResponseEntity.ok(updated);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al actualizar producto: " + e.getMessage());
+        }
     }
+
 }
