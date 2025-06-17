@@ -1,7 +1,10 @@
 package com.microservice.inventory.controller;
 
+import com.microservice.inventory.dto.InventoryUpdateRequest;
 import com.microservice.inventory.entities.Inventory;
+import com.microservice.inventory.entities.Products;
 import com.microservice.inventory.services.IInventoryService;
+import com.microservice.inventory.services.IProductsService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,9 @@ public class InventoryController {
 
     @Autowired
     IInventoryService inventoryService;
+
+    @Autowired
+    private IProductsService productService;
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
@@ -43,20 +49,27 @@ public class InventoryController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateInventory(@PathVariable("id") Long id, @RequestBody Inventory inventoryDetails) {
+    public ResponseEntity<?> updateInventory(@PathVariable("id") Long id, @RequestBody InventoryUpdateRequest inventoryDetails) {
         Inventory existingInventory = inventoryService.findById(id);
         if (existingInventory == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Inventory with ID " + id + " not found");
         }
 
-        // Actualizo solo los atributos que vienen en la request
-        existingInventory.setProduct(inventoryDetails.getProduct());
+        // Buscar el producto por ID
+        Products product = productService.findById(inventoryDetails.getProductId());
+        if (product == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product with ID " + inventoryDetails.getProductId() + " not found");
+        }
+
+        // Actualizar los datos
+        existingInventory.setProduct(product);
         existingInventory.setInventory_number(inventoryDetails.getInventory_number());
         existingInventory.setExp_date(inventoryDetails.getExp_date());
         existingInventory.setUnit_price(inventoryDetails.getUnit_price());
 
-        inventoryService.save(existingInventory);  // save hace UPDATE porque ya tiene id
+        inventoryService.save(existingInventory);
 
         return ResponseEntity.ok(existingInventory);
     }
+
 }
