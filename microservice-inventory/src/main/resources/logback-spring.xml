@@ -1,18 +1,16 @@
 <configuration>
-    <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
-        <http>
-            <url>http://loki.railway.internal:3100</url>
-        </http>
-        <format>
-            <label>
-                <pattern>application=${spring.application.name},host=${HOSTNAME},level=%level</pattern>
-            </label>
-            <message>
-                <pattern>${FILE_LOG_PATTERN}</pattern>
-            </message>
-        </format>
+    <appender name="LOKI" class="com.github.loki4j.logback.LokiAppender">
+        <url>http://loki.railway.internal:3100</url>
+        <batchSize>100</batchSize>
+        <batchWait>1000</batchWait>
+        <encoding>json</encoding>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </layout>
     </appender>
+
     <root level="INFO">
-        <appender-ref ref="LOKI"/>
+        <appender-ref ref="LOKI" />
+        <appender-ref ref="CONSOLE" />
     </root>
 </configuration>
