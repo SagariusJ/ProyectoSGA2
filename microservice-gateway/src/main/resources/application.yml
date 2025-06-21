@@ -38,7 +38,7 @@ spring:
           predicates:
             - Path=/api/warehouse/**
         - id: authentication
-          uri: lb://msvc-authentication
+          uri: https://microservice-authentication-production.up.railway.app
           predicates:
             - Path=/auth/**
 
