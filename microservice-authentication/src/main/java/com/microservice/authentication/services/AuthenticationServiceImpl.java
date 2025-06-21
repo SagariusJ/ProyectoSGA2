@@ -4,6 +4,7 @@ import com.microservice.authentication.dto.RegisterRequest;
 import com.microservice.authentication.entities.User;
 import com.microservice.authentication.persistence.UserRepository;
 import com.microservice.authentication.security.JwtUtil;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.UserDetails;
