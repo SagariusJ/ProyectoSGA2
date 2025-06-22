@@ -24,7 +24,6 @@ public class AuthenticationController {
 
 
     @PostMapping("/auth/register")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public String register(@RequestBody RegisterRequest request) {
         System.out.println("Register endpoint hit with user: " + request.getUsername());
         authService.register(request);
