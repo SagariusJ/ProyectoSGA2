@@ -3,8 +3,9 @@ package com.microservice.authentication.dto;
 import lombok.*;
 
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserResponse {
     private Long id;
     private String username;
