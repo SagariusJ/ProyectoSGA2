@@ -13,7 +13,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api")
 public class AuthenticationController {
 
     @Autowired
@@ -22,7 +22,7 @@ public class AuthenticationController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public String register(@RequestBody RegisterRequest request) {
         System.out.println("Register endpoint hit with user: " + request.getUsername());
         authService.register(request);
@@ -30,37 +30,37 @@ public class AuthenticationController {
     }
 
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
         String token = authService.login(request.getUsername(), request.getPassword());
         return new LoginResponse(token);
     }
 
-    @PutMapping("/edit-profile")
+    @PutMapping("/auth/edit-profile")
     public String editProfile(@RequestBody RegisterRequest request, Principal principal) {
         userService.updateUserDataByUsername(principal.getName(), request);
         return "Profile updated";
     }
 
-    @PutMapping("/admin/update-role/{userId}")
+    @PutMapping("/auth/admin/update-role/{userId}")
     public String updateRole(@PathVariable Long userId, @RequestParam String role) {
         userService.updateUserRole(userId, role);
         return "Role updated";
     }
 
-    @DeleteMapping("/admin/delete/{userId}")
+    @DeleteMapping("/auth/admin/delete/{userId}")
     public String deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return "User deleted";
     }
 
-    @PutMapping("/admin/update-user/{userId}")
+    @PutMapping("/auth/admin/update-user/{userId}")
     public String updateUserData(@PathVariable Long userId, @RequestBody RegisterRequest updatedData) {
         userService.updateUserData(userId, updatedData);
         return "User data updated";
     }
 
-    @GetMapping("/admin/users")
+    @GetMapping("/auth/admin/users")
     public List<UserResponse> getAllUsers() {
         return userService.getAllUsers();
     }
