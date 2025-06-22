@@ -14,4 +14,6 @@ public class RegisterRequest {
     private String region;
     private String commune;
     private String address;
+
+    public RegisterRequest() {}
 }
