@@ -25,7 +25,7 @@ public class AuthenticationController {
 
     @PostMapping("/auth/register")
     public String register(@RequestBody RegisterRequest request) {
-        System.out.println("Register endpoint hit with user: " + request.getUsername());
+        System.out.println("Register request received: " + request);
         authService.register(request);
         return "User registered successfully";
     }
