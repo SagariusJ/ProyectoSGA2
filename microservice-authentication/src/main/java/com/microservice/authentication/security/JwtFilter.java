@@ -35,7 +35,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-        if (path.startsWith("/api/auth/register") || path.startsWith("/api/auth/login")) {
+        if ("/auth/register".equals(path) || "/auth/login".equals(path)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -43,18 +43,24 @@ public class JwtFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String jwt = authHeader.substring(7);
-            String username = jwtUtil.extractUsername(jwt);
+            try {
+                String jwt = authHeader.substring(7);
+                String username = jwtUtil.extractUsername(jwt);
 
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                DecodedJWT decodedJWT = JWT.decode(jwt);
-                List<SimpleGrantedAuthority> authorities = decodedJWT.getClaim("roles").asList(String.class)
-                        .stream()
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
+                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    DecodedJWT decodedJWT = JWT.decode(jwt);
+                    List<SimpleGrantedAuthority> authorities = decodedJWT.getClaim("roles").asList(String.class)
+                            .stream()
+                            .map(SimpleGrantedAuthority::new)
+                            .collect(Collectors.toList());
 
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
+            } catch (Exception e) {
+                System.out.println("Error processing JWT: " + e.getMessage());
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token");
+                return;
             }
         }
 
