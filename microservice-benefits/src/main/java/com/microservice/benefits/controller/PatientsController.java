@@ -1,0 +1,57 @@
+package com.microservice.benefits.controller;
+
+import com.microservice.benefits.entities.Patients;
+import com.microservice.benefits.services.IPatientsService;
+import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/patients")
+public class PatientsController {
+
+    @Autowired
+    IPatientsService patientsService;
+
+    @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void savePatients(@RequestBody Patients patient){patientsService.save(patient);}
+
+    @GetMapping("/all")
+    public ResponseEntity<?> findAll(){ return ResponseEntity.ok(patientsService.findAll());}
+
+    @GetMapping("/search/{id}")
+    public ResponseEntity<?> findById(@PathVariable("id") Long id){
+        return ResponseEntity.ok(patientsService.findById(id));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deletePatients(@PathVariable("id") Long id){
+        Patients existingPatients = patientsService.findById(id);
+        if(existingPatients==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Benefit with ID " + id + " not found");
+        }
+        patientsService.deleteById(id);
+        return ResponseEntity.ok("Benefit with ID " + id + " deleted succesfully");
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updatePatient(@PathVariable("id") Long id, @RequestBody Patients patientdetail){
+        Patients existingPatients = patientsService.findById(id);
+        if(existingPatients==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Benefit with ID " + id + " not found");
+        }
+
+        existingPatients.setFullName(patientdetail.getFullName());
+        existingPatients.setBirthDate(patientdetail.getBirthDate());
+        existingPatients.setRegion(patientdetail.getRegion());
+        existingPatients.setCommune(patientdetail.getCommune());
+        existingPatients.setAddress(patientdetail.getAddress());
+
+        patientsService.save(existingPatients);
+
+        return ResponseEntity.ok(existingPatients);
+    }
+}
