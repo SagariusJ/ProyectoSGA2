@@ -22,7 +22,9 @@ public class AuthenticationController {
     @Autowired
     private UserService userService;
 
+
     @PostMapping("/auth/register")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public String register(@RequestBody RegisterRequest request) {
         System.out.println("Register endpoint hit with user: " + request.getUsername());
         authService.register(request);
@@ -31,6 +33,7 @@ public class AuthenticationController {
 
 
     @PostMapping("/auth/login")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public LoginResponse login(@RequestBody LoginRequest request) {
         String token = authService.login(request.getUsername(), request.getPassword());
         return new LoginResponse(token);
