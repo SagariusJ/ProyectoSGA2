@@ -24,9 +24,11 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public String register(@RequestBody RegisterRequest request) {
+        System.out.println("Register endpoint hit with user: " + request.getUsername());
         authService.register(request);
         return "User registered successfully";
     }
+
 
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
