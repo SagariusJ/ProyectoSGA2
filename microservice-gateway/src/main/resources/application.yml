@@ -40,7 +40,7 @@ spring:
         - id: authentication
           uri: https://microservice-authentication-production.up.railway.app
           predicates:
-            - Path=/auth/**
+            - Path=/api/auth/**
 
 
 management:
