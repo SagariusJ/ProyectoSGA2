@@ -1,10 +1,11 @@
 package com.microservice.authentication.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegisterRequest {
     private String username;
     private String password;
