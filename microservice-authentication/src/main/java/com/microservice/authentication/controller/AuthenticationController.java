@@ -8,9 +8,12 @@ import com.microservice.authentication.services.IAuthenticationService;
 import com.microservice.authentication.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -24,11 +27,16 @@ public class AuthenticationController {
 
 
     @PostMapping("/auth/register")
-    public String register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<Map<String, String>> register(@RequestBody RegisterRequest request) {
         System.out.println("Register request received: " + request);
         authService.register(request);
-        return "User registered successfully";
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "User registered successfully");
+
+        return ResponseEntity.ok(response);
     }
+
 
 
     @PostMapping("/auth/login")
