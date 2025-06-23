@@ -6,6 +6,7 @@ import com.microservice.authentication.dto.RegisterRequest;
 import com.microservice.authentication.dto.UserResponse;
 import com.microservice.authentication.services.IAuthenticationService;
 import com.microservice.authentication.services.UserService;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.http.ResponseEntity;
@@ -71,6 +72,9 @@ public class AuthenticationController {
 
     @GetMapping("/auth/admin/users")
     public List<UserResponse> getAllUsers() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("Usuario autenticado: " + authentication.getName());
+        System.out.println("Roles: " + authentication.getAuthorities());
         return userService.getAllUsers();
     }
 
