@@ -11,6 +11,7 @@
         <module name="microservice-inventory" />
         <module name="microservice-eureka" />
         <module name="microservice-authentication" />
+        <module name="microservice-benefits" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

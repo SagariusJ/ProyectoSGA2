@@ -1,6 +1,7 @@
 package com.microservice.authentication.services;
 
 import com.microservice.authentication.dto.RegisterRequest;
+import com.microservice.authentication.dto.UserDTO;
 import com.microservice.authentication.entities.User;
 import com.microservice.authentication.persistence.UserRepository;
 import com.microservice.authentication.security.JwtUtil;
@@ -10,6 +11,7 @@ import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class AuthenticationServiceImpl implements IAuthenticationService {
@@ -24,6 +26,11 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     @Autowired
     private PasswordEncoder encoder;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    private final String PATIENT_SYNC_URL = "https://<benefits-service>.railway.app/patients/sync";
 
     @Override
     public String login(String username, String password) {
@@ -57,5 +64,20 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
                 .build();
 
         userRepository.save(user);
+
+        if ("ROLE_PATIENT".equalsIgnoreCase(user.getRole())) {
+            UserDTO dto = new UserDTO();
+            dto.setFullName(user.getFullName());
+            dto.setBirthDate(user.getBirthDate());
+            dto.setRegion(user.getRegion());
+            dto.setCommune(user.getCommune());
+            dto.setAddress(user.getAddress());
+
+            try {
+                restTemplate.postForEntity(PATIENT_SYNC_URL, dto, Void.class);
+            } catch (Exception e) {
+                e.printStackTrace(); // Aquí puedes agregar logs o reintentos
+            }
+        }
     }
 }
