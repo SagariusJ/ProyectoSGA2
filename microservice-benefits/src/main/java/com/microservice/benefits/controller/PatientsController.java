@@ -55,16 +55,4 @@ public class PatientsController {
         return ResponseEntity.ok(existingPatients);
     }
 
-    @PostMapping("/sync")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createFromUser(@RequestBody UserDTO dto) {
-        Patients patient = new Patients();
-        patient.setFullName(dto.getFullName());
-        patient.setBirthDate(dto.getBirthDate());
-        patient.setRegion(dto.getRegion());
-        patient.setCommune(dto.getCommune());
-        patient.setAddress(dto.getAddress());
-
-        patientsService.save(patient);
-    }
 }
