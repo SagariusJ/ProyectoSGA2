@@ -45,7 +45,7 @@ public class SecurityConfig {
     // 🔐 Usa misma clave que en authentication para validar los JWT
     @Bean
     public ReactiveJwtDecoder jwtDecoder() {
-        SecretKeySpec secretKey = new SecretKeySpec("SebastianBrunoRodrigoJouannetCaroJaraContrerasVasquezRodriguezMiraBruno".getBytes(), "HmacSHA256");
+        SecretKeySpec secretKey = new SecretKeySpec("Q1tDqYIfqGxE96C4lZ3E0mDGrnpb4tR8Z0Gf1nFaJ4s=".getBytes(), "HmacSHA256");
         return NimbusReactiveJwtDecoder.withSecretKey(secretKey).build();
     }
 }
