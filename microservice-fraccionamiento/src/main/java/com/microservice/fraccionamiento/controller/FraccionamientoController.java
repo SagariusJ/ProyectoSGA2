@@ -16,7 +16,7 @@ public class FraccionamientoController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveFraccionamiento(Fraccionamiento fraccionamiento){fraccionamientoService.save(fraccionamiento);}
+    public void saveFraccionamiento(@RequestBody Fraccionamiento fraccionamiento){fraccionamientoService.save(fraccionamiento);}
 
     @GetMapping("/all")
     public ResponseEntity<?> findAll(){return ResponseEntity.ok(fraccionamientoService.findAll());}

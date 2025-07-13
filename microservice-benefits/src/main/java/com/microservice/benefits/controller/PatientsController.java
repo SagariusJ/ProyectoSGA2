@@ -1,5 +1,6 @@
 package com.microservice.benefits.controller;
 
+import com.microservice.benefits.dto.PatientWithUserDTO;
 import com.microservice.benefits.entities.Patients;
 import com.microservice.benefits.services.IPatientsService;
 import org.apache.coyote.Response;
@@ -55,4 +56,8 @@ public class PatientsController {
         return ResponseEntity.ok(existingPatients);
     }
 
+    @GetMapping("/{id}/with-user")
+    public ResponseEntity<PatientWithUserDTO> getPatientWithUser(@PathVariable Long id) {
+        return ResponseEntity.ok(patientsService.getPatientWithUser(id));
+    }
 }
