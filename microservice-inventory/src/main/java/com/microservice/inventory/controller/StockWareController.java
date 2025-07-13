@@ -5,6 +5,7 @@ import com.microservice.inventory.services.IStockWareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,7 @@ public class StockWareController {
     IStockWareService stockWareService;
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveStockWare(@RequestBody StockWare stockWare) {
         stockWareService.save(stockWare);
@@ -31,6 +33,7 @@ public class StockWareController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteStockWare(@PathVariable("id") Long id) {
         StockWare existingStockWare = stockWareService.findById(id);
         if (existingStockWare == null) {
@@ -41,6 +44,7 @@ public class StockWareController {
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateStockWare(@PathVariable("id") Long id, @RequestBody StockWare stockWareDetails) {
         StockWare existingStockWare = stockWareService.findById(id);
         if (existingStockWare == null) {

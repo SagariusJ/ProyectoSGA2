@@ -9,6 +9,7 @@ import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,6 +23,7 @@ public class InventoryController {
     private IProductsService productService;
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveInventory(@RequestBody Inventory inventory) {
         inventoryService.save(inventory);
@@ -38,6 +40,7 @@ public class InventoryController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteInventory(@PathVariable("id") Long id) {
         Inventory existingInventory = inventoryService.findById(id);
         if (existingInventory == null) {
@@ -49,6 +52,7 @@ public class InventoryController {
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateInventory(@PathVariable("id") Long id, @RequestBody InventoryUpdateRequest inventoryDetails) {
         Inventory existingInventory = inventoryService.findById(id);
         if (existingInventory == null) {

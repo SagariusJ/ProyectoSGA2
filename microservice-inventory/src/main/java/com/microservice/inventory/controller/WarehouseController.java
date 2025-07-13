@@ -5,6 +5,7 @@ import com.microservice.inventory.services.IWarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,7 @@ public class WarehouseController {
     IWarehouseService warehouseService;
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveWarehouse(@RequestBody Warehouse warehouse) {
         warehouseService.save(warehouse);
@@ -31,6 +33,7 @@ public class WarehouseController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteWarehouse(@PathVariable("id") Long id) {
         Warehouse existingWarehouse = warehouseService.findById(id);
         if (existingWarehouse == null) {
@@ -41,6 +44,7 @@ public class WarehouseController {
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateWarehouse(@PathVariable("id") Long id, @RequestBody Warehouse warehouseDetails) {
         Warehouse existingWarehouse = warehouseService.findById(id);
         if (existingWarehouse == null) {

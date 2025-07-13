@@ -5,6 +5,7 @@ import com.microservice.inventory.services.IProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,7 @@ public class ProductsController {
     IProductsService productsService;
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveProduct(@RequestBody Products product) {
         productsService.save(product);
@@ -31,6 +33,7 @@ public class ProductsController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id) {
         Products existingProduct = productsService.findById(id);
         if (existingProduct == null) {
@@ -52,6 +55,7 @@ public class ProductsController {
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateProduct(@PathVariable("id") Long id, @RequestBody Products productDetails) {
         System.out.println("Update request for ID: " + id);
         System.out.println("Payload: " + productDetails);
