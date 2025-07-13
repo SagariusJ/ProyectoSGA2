@@ -42,6 +42,7 @@ public class AuthenticationController {
 
     @PostMapping("/auth/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
+        System.out.println("LLEGO A LOGIN CONTROLLER");
         String token = authService.login(request.getUsername(), request.getPassword());
         return new LoginResponse(token);
     }
