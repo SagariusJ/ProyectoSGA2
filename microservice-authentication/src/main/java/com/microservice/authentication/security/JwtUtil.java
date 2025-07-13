@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Component
 public class JwtUtil {
 
-    private static final String SECRET_KEY = "Q1tDqYIfqGxE96C4lZ3E0mDGrnpb4tR8Z0Gf1nFaJ4s=";
+    private static final String SECRET_KEY = "dCTT3lnkifqPWXd0OqorNhnpcdBc4yy8WrMMbYko52k=";
     private static final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hora
 
     public String generateToken(UserDetails userDetails) {
