@@ -2,6 +2,7 @@ package com.microservice.gateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.oauth2.jwt.*;
@@ -16,11 +17,17 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http
-                // 🔒 Deshabilita CSRF (para REST + JWT es lo recomendado)
+                // Deshabilita CSRF porque es REST + JWT
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
 
-                // 🔐 Configura rutas permitidas y autenticadas
-                .authorizeExchange(exchange -> exchange
+                // 1) Activa CORS (tu CorsWebFilter lo manejará)
+                .cors(ServerHttpSecurity.CorsSpec::disable)
+
+                // 2) Controla primero los preflight OPTIONS
+                .authorizeExchange(ex -> ex
+                        .pathMatchers(HttpMethod.OPTIONS).permitAll()
+
+                        // 3) Permite rutas públicas
                         .pathMatchers("/api/auth/**").permitAll()
                         .pathMatchers("/api/inventory/all").permitAll()
                         .pathMatchers("/api/inventory/search/**").permitAll()
@@ -30,22 +37,24 @@ public class SecurityConfig {
                         .pathMatchers("/api/stockware/search/**").permitAll()
                         .pathMatchers("/api/warehouse/all").permitAll()
                         .pathMatchers("/api/warehouse/search/**").permitAll()
-                        .anyExchange().authenticated() // todas las demás requieren JWT
+
+                        // 4) El resto requiere JWT válido
+                        .anyExchange().authenticated()
                 )
 
-                // 🪪 Configura decodificación JWT
+                // 5) Recurso server JWT con tu decoder
                 .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(jwt -> jwt
-                                .jwtDecoder(jwtDecoder())
-                        )
+                        .jwt(jwt -> jwt.jwtDecoder(jwtDecoder()))
                 )
                 .build();
     }
 
-    // 🔐 Usa misma clave que en authentication para validar los JWT
     @Bean
     public ReactiveJwtDecoder jwtDecoder() {
-        SecretKeySpec secretKey = new SecretKeySpec("dCTT3lnkifqPWXd0OqorNhnpcdBc4yy8WrMMbYko52k=".getBytes(), "HmacSHA256");
+        SecretKeySpec secretKey = new SecretKeySpec(
+                "dCTT3lnkifqPWXd0OqorNhnpcdBc4yy8WrMMbYko52k=".getBytes(),
+                "HmacSHA256"
+        );
         return NimbusReactiveJwtDecoder.withSecretKey(secretKey).build();
     }
 }
