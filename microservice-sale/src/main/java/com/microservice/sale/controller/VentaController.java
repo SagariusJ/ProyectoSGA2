@@ -9,25 +9,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/venta")
+@RequestMapping("/api")
 public class VentaController {
 
     @Autowired
     IVentaService ventaService;
 
-    @PostMapping("/create")
+    @PostMapping("/venta/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveVenta(@RequestBody Venta venta){ventaService.save(venta);}
 
-    @GetMapping("/all")
+    @GetMapping("/venta/all")
     public ResponseEntity<?> findAll(){ return ResponseEntity.ok(ventaService.findAll());}
 
-    @GetMapping("/search/{id}")
+    @GetMapping("/venta/search/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Long id){
         return ResponseEntity.ok(ventaService.findById(id));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/venta/delete/{id}")
     public ResponseEntity<?> deleteBenefits(@PathVariable("id") Long id){
         Venta existingVenta = ventaService.findById(id);
         if(ventaService==null){

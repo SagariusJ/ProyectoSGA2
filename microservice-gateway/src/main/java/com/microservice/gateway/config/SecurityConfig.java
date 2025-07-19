@@ -40,6 +40,11 @@ public class SecurityConfig {
                         .pathMatchers("/api/benefits/**").permitAll()
                         .pathMatchers("/api/patben/**").permitAll()
                         .pathMatchers("/api/patients/**").permitAll()
+                        .pathMatchers("/api/compra/**").permitAll()
+                        .pathMatchers("/api/venta/**").permitAll()
+                        .pathMatchers("/api/ventadet/**").permitAll()
+                        .pathMatchers("/api/proveedor/**").permitAll()
+                        .pathMatchers("/api/compradet/**").permitAll()
                         // 4) El resto requiere JWT válido
                         .anyExchange().authenticated()
                 )

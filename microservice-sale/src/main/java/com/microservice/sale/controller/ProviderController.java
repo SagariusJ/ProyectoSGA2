@@ -9,25 +9,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/proveedor")
+@RequestMapping("/api")
 public class ProviderController {
 
     @Autowired
     IProviderService providerService;
 
-    @PostMapping("/create")
+    @PostMapping("/proveedor/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveProviders(@RequestBody Provider provider){providerService.save(provider);}
 
-    @GetMapping("/all")
+    @GetMapping("/proveedor/all")
     public ResponseEntity<?> findAll(){ return ResponseEntity.ok(providerService.findAll());}
 
-    @GetMapping("/search/{id}")
+    @GetMapping("/proveedor/search/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Long id){
         return ResponseEntity.ok(providerService.findById(id));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/proveedor/delete/{id}")
     public ResponseEntity<?> deleteBenefits(@PathVariable("id") Long id){
         Provider existingProvider = providerService.findById(id);
         if(existingProvider==null){

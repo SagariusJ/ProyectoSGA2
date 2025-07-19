@@ -10,25 +10,25 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/compra")
+@RequestMapping("/api")
 public class CompraController {
 
     @Autowired
     ICompraService compraService;
 
-    @PostMapping("/create")
+    @PostMapping("/compra/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveCompra(@RequestBody Compra compra){compraService.save(compra);}
 
-    @GetMapping("/all")
+    @GetMapping("/compra/all")
     public ResponseEntity<?> findAll(){ return ResponseEntity.ok(compraService.findAll());}
 
-    @GetMapping("/search/{id}")
+    @GetMapping("/compra/search/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Long id){
         return ResponseEntity.ok(compraService.findById(id));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/compra/delete/{id}")
     public ResponseEntity<?> deleteBenefits(@PathVariable("id") Long id){
         Compra existingCompra = compraService.findById(id);
         if(existingCompra==null){

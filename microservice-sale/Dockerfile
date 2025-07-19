@@ -4,5 +4,5 @@ RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:17-jre
 COPY --from=build /target/microservice-sale-0.0.1-SNAPSHOT.jar app.jar
-EXPOSE 8092
+EXPOSE 8094
 ENTRYPOINT ["java", "-jar", "/app.jar"]
