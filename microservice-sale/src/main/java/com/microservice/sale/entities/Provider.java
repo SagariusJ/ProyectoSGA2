@@ -24,6 +24,7 @@ public class Provider {
 
     private String contacto;
 
-    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Compra> compras;
+
 }
