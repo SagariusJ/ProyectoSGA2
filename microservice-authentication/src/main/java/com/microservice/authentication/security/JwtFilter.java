@@ -42,25 +42,38 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
+        String path = request.getServletPath();
+        System.out.println("JwtFilter - Incoming request path: " + path);
+
         String authHeader = request.getHeader("Authorization");
+        System.out.println("JwtFilter - Authorization header: " + authHeader);
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String jwt = authHeader.substring(7);
             String username = jwtUtil.extractUsername(jwt);
+            System.out.println("JwtFilter - Extracted username from token: " + username);
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                DecodedJWT decodedJWT = JWT.decode(jwt);
+                try {
+                    DecodedJWT decodedJWT = JWT.decode(jwt);
 
-                List<SimpleGrantedAuthority> authorities = decodedJWT.getClaim("roles").asList(String.class)
-                        .stream()
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
+                    List<SimpleGrantedAuthority> authorities = decodedJWT.getClaim("roles").asList(String.class)
+                            .stream()
+                            .map(SimpleGrantedAuthority::new)
+                            .collect(Collectors.toList());
 
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(username, null, authorities);
-                System.out.println("Authorities from token: " + authorities);
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                    System.out.println("JwtFilter - Authorities from token: " + authorities);
+
+                    UsernamePasswordAuthenticationToken authToken =
+                            new UsernamePasswordAuthenticationToken(username, null, authorities);
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                } catch (Exception e) {
+                    System.out.println("JwtFilter - Failed to decode or process JWT: " + e.getMessage());
+                    // Opcionalmente, podrías responder con error aquí o dejar pasar para que la seguridad lo gestione
+                }
             }
+        } else {
+            System.out.println("JwtFilter - No Bearer token found in Authorization header");
         }
 
         filterChain.doFilter(request, response);
