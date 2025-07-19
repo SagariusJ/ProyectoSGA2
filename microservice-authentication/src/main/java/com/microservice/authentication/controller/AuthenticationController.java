@@ -23,6 +23,11 @@ public class AuthenticationController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/auth/public/test")
+    public String testPublic() {
+        return "OK PUBLIC";
+    }
+
     @GetMapping("/auth/public/user/{userId}")
     public ResponseEntity<PublicUserResponse> getPublicUserById(@PathVariable Long userId) {
         PublicUserResponse user = userService.getPublicUserById(userId);
