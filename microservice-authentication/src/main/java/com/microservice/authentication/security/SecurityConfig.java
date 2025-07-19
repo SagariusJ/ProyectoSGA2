@@ -29,7 +29,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                //.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(cors -> {}) // <--- Esto habilita CORS
                 .build();
     }
