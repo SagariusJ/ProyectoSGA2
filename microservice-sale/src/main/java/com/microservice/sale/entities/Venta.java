@@ -29,6 +29,6 @@ public class Venta {
     @Column
     private double cost;
 
-    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VentaDetail> details;
 }
