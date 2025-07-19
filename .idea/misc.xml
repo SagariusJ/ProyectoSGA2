@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/microservice-inventory/pom.xml" />
         <option value="$PROJECT_DIR$/microservice-authentication/pom.xml" />
         <option value="$PROJECT_DIR$/microservice-benefits/pom.xml" />
+        <option value="$PROJECT_DIR$/microservice-sale/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

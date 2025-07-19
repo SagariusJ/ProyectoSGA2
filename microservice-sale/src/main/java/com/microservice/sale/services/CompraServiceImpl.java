@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public class CompraServiceImpl implements ICompraService{
 
+    @Autowired
     CompraRepository compraRepository;
 
     @Override

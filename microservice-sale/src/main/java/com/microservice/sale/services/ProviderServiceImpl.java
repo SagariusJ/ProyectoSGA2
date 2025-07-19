@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public class ProviderServiceImpl implements IProviderService{
 
+    @Autowired
     ProviderRepository providerRepository;
 
     @Override
