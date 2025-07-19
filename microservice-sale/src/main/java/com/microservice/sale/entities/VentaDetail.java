@@ -1,5 +1,6 @@
 package com.microservice.sale.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,7 @@ public class VentaDetail {
 
     @ManyToOne
     @JoinColumn(name = "venta_id")
+    @JsonBackReference
     private Venta sale;
 
     @Column

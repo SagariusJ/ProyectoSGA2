@@ -1,6 +1,7 @@
 package com.microservice.sale.controller;
 
 import com.microservice.sale.entities.Venta;
+import com.microservice.sale.entities.VentaDetail;
 import com.microservice.sale.services.IVentaService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,18 @@ public class VentaController {
 
     @PostMapping("/venta/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveVenta(@RequestBody Venta venta){ventaService.save(venta);}
+    public ResponseEntity<?> saveVenta(@RequestBody Venta venta) {
+        // Asignar la referencia "sale" a cada detalle para evitar problemas JPA
+        if (venta.getDetails() != null) {
+            for (VentaDetail detail : venta.getDetails()) {
+                detail.setSale(venta);
+            }
+        }
+
+        Venta savedVenta = ventaService.save(venta);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedVenta);
+    }
+
 
     @GetMapping("/venta/all")
     public ResponseEntity<?> findAll(){ return ResponseEntity.ok(ventaService.findAll());}

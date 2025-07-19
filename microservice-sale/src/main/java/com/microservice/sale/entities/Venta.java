@@ -1,5 +1,6 @@
 package com.microservice.sale.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,5 +31,6 @@ public class Venta {
     private double cost;
 
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<VentaDetail> details;
 }
