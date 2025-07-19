@@ -8,6 +8,6 @@ import com.microservice.benefits.dto.UserDTO;
 @FeignClient(name = "microservice-authentication")
 public interface UserClient {
 
-    @GetMapping("/api/auth/usuario/{id}")
-    UserDTO getUserById(@PathVariable("id") Long id);
+    @GetMapping("/api/auth/public/user/{userId}")
+    UserDTO getUserById(@PathVariable("userId") Long userId);
 }
