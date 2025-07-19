@@ -60,7 +60,7 @@ spring:
         - id: ventas
           uri: https://microservice-sale-production.up.railway.app
           predicates:
-            - Path=/api/ventas/**
+            - Path=/api/venta/**
         - id: ventasdet
           uri: https://microservice-sale-production.up.railway.app
           predicates:
