@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
+
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
@@ -38,8 +40,15 @@ public class JwtFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
         System.out.println("JwtFilter - Incoming request path: " + path);
 
+        if (path.startsWith("/api/auth/public/")) {
+            System.out.println("JwtFilter - Ruta pública, se omite validación JWT");
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String authHeader = request.getHeader("Authorization");
         System.out.println("JwtFilter - Authorization header: " + authHeader);
+
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String jwt = authHeader.substring(7);
