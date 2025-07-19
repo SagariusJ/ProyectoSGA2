@@ -1,5 +1,6 @@
 package com.microservice.sale.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,7 @@ public class Compra {
 
     @ManyToOne
     @JoinColumn(name = "proveedor_id")
+    @JsonBackReference
     private Provider provider;
 
     @Column
