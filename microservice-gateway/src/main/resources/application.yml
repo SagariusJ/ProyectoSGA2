@@ -54,7 +54,7 @@ spring:
           predicates:
             - Path=/api/patben/**
         - id: sales
-          uri: https://microservice-sales-production.up.railway.app
+          uri: https://microservice-sale-production.up.railway.app
           predicates:
               - Path=/api/compradet/**"
               - Path=/api/ventas/**"
