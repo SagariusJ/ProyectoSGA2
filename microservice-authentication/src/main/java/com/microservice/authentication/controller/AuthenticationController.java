@@ -26,7 +26,7 @@ public class AuthenticationController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/auth/users/{id}")
+    @GetMapping("/auth/usuario/{id}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
         UserResponse user = userService.getUserById(id);
         return ResponseEntity.ok(user);
