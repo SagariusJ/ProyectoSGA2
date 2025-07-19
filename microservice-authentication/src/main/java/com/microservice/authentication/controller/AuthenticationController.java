@@ -1,9 +1,6 @@
 package com.microservice.authentication.controller;
 
-import com.microservice.authentication.dto.LoginRequest;
-import com.microservice.authentication.dto.LoginResponse;
-import com.microservice.authentication.dto.RegisterRequest;
-import com.microservice.authentication.dto.UserResponse;
+import com.microservice.authentication.dto.*;
 import com.microservice.authentication.services.IAuthenticationService;
 import com.microservice.authentication.services.UserService;
 import lombok.var;
@@ -25,6 +22,12 @@ public class AuthenticationController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("/auth/public/user/{userId}")
+    public ResponseEntity<PublicUserResponse> getPublicUserById(@PathVariable Long userId) {
+        PublicUserResponse user = userService.getPublicUserById(userId);
+        return ResponseEntity.ok(user);
+    }
 
     @PostMapping("/auth/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody RegisterRequest request) {

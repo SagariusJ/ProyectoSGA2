@@ -1,5 +1,6 @@
 package com.microservice.authentication.services;
 
+import com.microservice.authentication.dto.PublicUserResponse;
 import com.microservice.authentication.dto.RegisterRequest;
 import com.microservice.authentication.entities.User;
 import com.microservice.authentication.persistence.UserRepository;
@@ -71,4 +72,16 @@ public class UserService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    public PublicUserResponse getPublicUserById(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return new PublicUserResponse(
+                user.getId(),
+                user.getUsername(),
+                user.getFullName()
+        );
+    }
+
 }
