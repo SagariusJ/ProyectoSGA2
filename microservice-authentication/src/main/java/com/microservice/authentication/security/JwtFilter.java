@@ -41,7 +41,7 @@ public class JwtFilter extends OncePerRequestFilter {
         System.out.println("JwtFilter - Incoming request path: " + path);
 
         if (path.startsWith("/api/auth/public/")) {
-            System.out.println("JwtFilter - Ruta pública, se omite validación JWT");
+            System.out.println(">>> JwtFilter - Ruta pública detectada, omitiendo JWT");
             filterChain.doFilter(request, response);
             return;
         }
