@@ -71,31 +71,4 @@ public class UserService {
                 ))
                 .collect(Collectors.toList());
     }
-
-    public UserResponse getUserById(Long id) {
-        System.out.println("🔍 [Service] Buscando usuario con ID: " + id);
-
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> {
-                    System.out.println("❌ [Service] Usuario no encontrado para ID: " + id);
-                    return new RuntimeException("User not found");
-                });
-
-        System.out.println("✅ [Service] Usuario encontrado: " + user.getUsername());
-
-        return new UserResponse(
-                user.getId(),
-                user.getUsername(),
-                user.getFullName(),
-                user.getEmail(),
-                user.getBirthDate(),
-                user.getRegion(),
-                user.getCommune(),
-                user.getAddress(),
-                user.getRole()
-        );
-    }
-
-
-
 }
