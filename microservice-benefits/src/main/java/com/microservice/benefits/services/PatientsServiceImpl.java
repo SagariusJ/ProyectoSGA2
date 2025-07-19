@@ -33,7 +33,7 @@ public class PatientsServiceImpl implements IPatientsService{
     public PatientWithUserDTO getPatientWithUser(Long patientId) {
         Patients patient = patientsRepository.findById(patientId)
                 .orElseThrow(() -> new RuntimeException("Patient not found"));
-
+        System.out.println("ID del usuario: " + patient.getUserId());
         UserDTO user = userClient.getUserById(patient.getUserId());  // Usamos el userId real
 
         return new PatientWithUserDTO(patient, user);
