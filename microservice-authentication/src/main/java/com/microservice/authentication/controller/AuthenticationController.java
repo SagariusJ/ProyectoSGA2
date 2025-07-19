@@ -40,6 +40,7 @@ public class AuthenticationController {
     }
 
 
+
     @PostMapping("/auth/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody RegisterRequest request) {
         System.out.println("Register request received: " + request);
