@@ -30,7 +30,9 @@ public class AuthenticationController {
 
     @GetMapping("/auth/public/user/{userId}")
     public ResponseEntity<PublicUserResponse> getPublicUserById(@PathVariable Long userId) {
+        System.out.println("Accediendo al endpoint público: /auth/public/user/" + userId);
         PublicUserResponse user = userService.getPublicUserById(userId);
+        System.out.println("Usuario público encontrado: " + user);
         return ResponseEntity.ok(user);
     }
 
