@@ -36,3 +36,4 @@ public class Compra {
     private List<CompraDetail> details;
 }
 
+

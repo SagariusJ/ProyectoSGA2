@@ -1,6 +1,7 @@
 package com.microservice.sale.services;
 
 import com.microservice.sale.entities.Compra;
+import com.microservice.sale.entities.CompraDetail;
 import com.microservice.sale.persistence.CompraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,14 @@ public class CompraServiceImpl implements ICompraService{
 
     @Override
     public Compra save(Compra compra) {
+        if (compra.getDetails() != null) {
+            for (CompraDetail detail : compra.getDetails()) {
+                detail.setCompra(compra);  // MUY IMPORTANTE
+            }
+        }
         return compraRepository.save(compra);
     }
+
 
     @Override
     public void deleteById(Long id) {
