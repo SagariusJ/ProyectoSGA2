@@ -19,10 +19,11 @@ public class Patient_Benefit {
     private long id;
 
     @ManyToOne
-    @Column
+    @JoinColumn(name = "patient_id")
     private Patients patient;
 
     @ManyToOne
-    @Column
+    @JoinColumn(name = "benefit_id")
     private Benefits benefit;
+
 }
