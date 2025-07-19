@@ -33,6 +33,13 @@ public class AuthenticationController {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping("/auth/test-user/{id}")
+    public ResponseEntity<String> getUserTestById(@PathVariable Long id) {
+        System.out.println("🚨 Entró al endpoint /auth/test-user/" + id);
+        return ResponseEntity.ok("Llegó correctamente al backend con ID: " + id);
+    }
+
+
     @PostMapping("/auth/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody RegisterRequest request) {
         System.out.println("Register request received: " + request);
