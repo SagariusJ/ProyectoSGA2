@@ -45,8 +45,15 @@ spring:
           uri: https://microservice-benefits-production.up.railway.app
           predicates:
             - Path=/api/benefits/**
+        - id: patients
+          uri: https://microservice-benefits-production.up.railway.app
+          predicates:
             - Path=/api/patients/**
+        - id: patben
+          uri: https://microservice-benefits-production.up.railway.app
+          predicates:
             - Path=/api/patben/**
+
 
 
 management:
