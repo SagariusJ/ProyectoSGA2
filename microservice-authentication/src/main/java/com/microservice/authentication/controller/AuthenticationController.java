@@ -26,6 +26,11 @@ public class AuthenticationController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/auth/users/{id}")
+    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
+        UserResponse user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
+    }
 
     @PostMapping("/auth/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody RegisterRequest request) {
