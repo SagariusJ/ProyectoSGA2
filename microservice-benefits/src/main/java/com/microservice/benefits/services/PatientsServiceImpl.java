@@ -34,8 +34,9 @@ public class PatientsServiceImpl implements IPatientsService{
         Patients patient = patientsRepository.findById(patientId)
                 .orElseThrow(() -> new RuntimeException("Patient not found"));
 
-        UserDTO user = userClient.getUserById(patient.getId());
+        UserDTO user = userClient.getUserById(patient.getUserId());  // Usamos el userId real
 
         return new PatientWithUserDTO(patient, user);
     }
+
 }

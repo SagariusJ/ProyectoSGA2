@@ -18,7 +18,9 @@ public class PatientsController {
 
     @PostMapping("/patients/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public void savePatients(@RequestBody Patients patient){patientsService.save(patient);}
+    public void savePatients(@RequestBody Patients patient) {
+        patientsService.save(patient);
+    }
 
     @GetMapping("/patients/all")
     public ResponseEntity<?> findAll(){ return ResponseEntity.ok(patientsService.findAll());}
@@ -39,10 +41,10 @@ public class PatientsController {
     }
 
     @PutMapping("/patients/update/{id}")
-    public ResponseEntity<?> updatePatient(@PathVariable("id") Long id, @RequestBody Patients patientdetail){
+    public ResponseEntity<?> updatePatient(@PathVariable("id") Long id, @RequestBody Patients patientdetail) {
         Patients existingPatients = patientsService.findById(id);
-        if(existingPatients==null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Benefit with ID " + id + " not found");
+        if (existingPatients == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient with ID " + id + " not found");
         }
 
         existingPatients.setFullName(patientdetail.getFullName());
@@ -50,11 +52,13 @@ public class PatientsController {
         existingPatients.setRegion(patientdetail.getRegion());
         existingPatients.setCommune(patientdetail.getCommune());
         existingPatients.setAddress(patientdetail.getAddress());
+        existingPatients.setUserId(patientdetail.getUserId()); // <--- aquí
 
         patientsService.save(existingPatients);
 
         return ResponseEntity.ok(existingPatients);
     }
+
 
     @GetMapping("/patients/{id}/with-user")
     public ResponseEntity<PatientWithUserDTO> getPatientWithUser(@PathVariable Long id) {

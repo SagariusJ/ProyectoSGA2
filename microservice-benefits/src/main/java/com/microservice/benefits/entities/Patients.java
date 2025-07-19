@@ -33,5 +33,8 @@ public class Patients {
     @Column
     private String address;
 
+    @Column(name = "user_id")
+    private Long userId;
+
 
 }
