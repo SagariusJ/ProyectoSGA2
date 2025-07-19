@@ -9,24 +9,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/benefits")
+@RequestMapping("/api")
 public class BenefitsController {
     @Autowired
     IBenefitsService benefitsService;
 
-    @PostMapping("/create")
+    @PostMapping("/benefits/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveBenefits(@RequestBody Benefits benefits){benefitsService.save(benefits);}
 
-    @GetMapping("/all")
+    @GetMapping("/benefits/all")
     public ResponseEntity<?> findAll(){ return ResponseEntity.ok(benefitsService.findAll());}
 
-    @GetMapping("/search/{id}")
+    @GetMapping("/benefits/search/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Long id){
         return ResponseEntity.ok(benefitsService.findById(id));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/benefits/delete/{id}")
     public ResponseEntity<?> deleteBenefits(@PathVariable("id") Long id){
         Benefits existingBenefit = benefitsService.findById(id);
         if(existingBenefit==null){

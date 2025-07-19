@@ -10,25 +10,25 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/patben")
+@RequestMapping("/api")
 public class Patient_BenefitController {
 
     @Autowired
     IPatient_BenefitService patbenService;
 
-    @PostMapping("/create")
+    @PostMapping("/patben/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void savePatben(@RequestBody Patient_Benefit patben){patbenService.save(patben);}
 
-    @GetMapping("/all")
+    @GetMapping("/patben/all")
     public ResponseEntity<?> findAll(){ return ResponseEntity.ok(patbenService.findAll());}
 
-    @GetMapping("/search/{id}")
+    @GetMapping("/patben/search/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Long id){
         return ResponseEntity.ok(patbenService.findById(id));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/patben/delete/{id}")
     public ResponseEntity<?> deletePatben(@PathVariable("id") Long id){
         Patient_Benefit existingPatients = patbenService.findById(id);
         if(existingPatients==null){

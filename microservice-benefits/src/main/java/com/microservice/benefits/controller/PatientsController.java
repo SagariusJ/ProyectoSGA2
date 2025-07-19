@@ -10,25 +10,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/patients")
+@RequestMapping("/api")
 public class PatientsController {
 
     @Autowired
     IPatientsService patientsService;
 
-    @PostMapping("/create")
+    @PostMapping("/patients/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void savePatients(@RequestBody Patients patient){patientsService.save(patient);}
 
-    @GetMapping("/all")
+    @GetMapping("/patients/all")
     public ResponseEntity<?> findAll(){ return ResponseEntity.ok(patientsService.findAll());}
 
-    @GetMapping("/search/{id}")
+    @GetMapping("/patients/search/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Long id){
         return ResponseEntity.ok(patientsService.findById(id));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/patients/delete/{id}")
     public ResponseEntity<?> deletePatients(@PathVariable("id") Long id){
         Patients existingPatients = patientsService.findById(id);
         if(existingPatients==null){
@@ -38,7 +38,7 @@ public class PatientsController {
         return ResponseEntity.ok("Benefit with ID " + id + " deleted succesfully");
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/patients/update/{id}")
     public ResponseEntity<?> updatePatient(@PathVariable("id") Long id, @RequestBody Patients patientdetail){
         Patients existingPatients = patientsService.findById(id);
         if(existingPatients==null){
@@ -56,7 +56,7 @@ public class PatientsController {
         return ResponseEntity.ok(existingPatients);
     }
 
-    @GetMapping("/{id}/with-user")
+    @GetMapping("/patients/{id}/with-user")
     public ResponseEntity<PatientWithUserDTO> getPatientWithUser(@PathVariable Long id) {
         return ResponseEntity.ok(patientsService.getPatientWithUser(id));
     }
