@@ -28,6 +28,7 @@ public class AuthenticationController {
 
     @GetMapping("/auth/usuario/{id}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
+        System.out.println("🔍 [Controller] Recibida petición para ID: " + id);
         UserResponse user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }

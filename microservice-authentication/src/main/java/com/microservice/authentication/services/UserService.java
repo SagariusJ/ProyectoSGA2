@@ -73,8 +73,15 @@ public class UserService {
     }
 
     public UserResponse getUserById(Long id) {
+        System.out.println("🔍 [Service] Buscando usuario con ID: " + id);
+
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> {
+                    System.out.println("❌ [Service] Usuario no encontrado para ID: " + id);
+                    return new RuntimeException("User not found");
+                });
+
+        System.out.println("✅ [Service] Usuario encontrado: " + user.getUsername());
 
         return new UserResponse(
                 user.getId(),
@@ -88,6 +95,7 @@ public class UserService {
                 user.getRole()
         );
     }
+
 
 
 }
