@@ -40,9 +40,14 @@ public class JwtFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
         System.out.println("JwtFilter - Incoming request path: " + path);
 
+        // 🛡️ Omitir filtros para /actuator/**
+        if (path.startsWith("/actuator")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String authHeader = request.getHeader("Authorization");
         System.out.println("JwtFilter - Authorization header: " + authHeader);
-
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String jwt = authHeader.substring(7);
@@ -65,7 +70,6 @@ public class JwtFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 } catch (Exception e) {
                     System.out.println("JwtFilter - Failed to decode or process JWT: " + e.getMessage());
-                    // Opcionalmente, podrías responder con error aquí o dejar pasar para que la seguridad lo gestione
                 }
             }
         } else {
@@ -74,4 +78,5 @@ public class JwtFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+
 }
