@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
 
                 // 1) Activa CORS (tu CorsWebFilter lo manejará)
-                .cors(ServerHttpSecurity.CorsSpec::disable)
+
 
                 // 2) Controla primero los preflight OPTIONS
                 .authorizeExchange(ex -> ex
