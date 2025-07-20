@@ -10,25 +10,25 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/caja")
+@RequestMapping("/api")
 public class CajaController {
 
     @Autowired
     ICajaService cajaService;
 
-    @PostMapping("/create")
+    @PostMapping("/caja/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveCaja(@RequestBody Caja caja){cajaService.save(caja);}
 
-    @GetMapping("/all")
+    @GetMapping("/caja/all")
     public ResponseEntity<?> findAll(){return ResponseEntity.ok(cajaService.findAll());}
 
-    @GetMapping("/search/{id}")
+    @GetMapping("/caja/search/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Long id){
         return ResponseEntity.ok(cajaService.findById(id));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/caja/delete/{id}")
     public ResponseEntity<?> deleteCaja(@PathVariable("id") Long id){
         Caja existingBox = cajaService.findById(id);
         if (existingBox == null){
@@ -38,7 +38,7 @@ public class CajaController {
         return ResponseEntity.ok("Box with ID " + id + " deleted succesfully");
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/caja/update/{id}")
     public ResponseEntity<?> updateCaja(@PathVariable("id") Long id, @RequestBody CajaUpdateRequest cajaDetails){
         Caja existingBox = cajaService.findById(id);
         if(existingBox == null){

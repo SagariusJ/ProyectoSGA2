@@ -73,6 +73,10 @@ spring:
           uri: https://microservice-sale-production.up.railway.app
           predicates:
             - Path=/api/compra/**
+        - id: caja
+          uri: https://microservice-caja-production.up.railway.app/
+          predicates:
+                - Path=/api/caja/**
 
 
 
