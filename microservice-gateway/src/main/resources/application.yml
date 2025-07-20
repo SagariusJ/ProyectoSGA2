@@ -77,7 +77,10 @@ spring:
           uri: https://microservice-caja-production.up.railway.app/
           predicates:
                 - Path=/api/caja/**
-
+        - id: fraccionamiento
+          uri: https://microservice-fraccionamiento-production.up.railway.app
+          predicates:
+              - Path=/api/fraccionamiento/**
 
 
 management:

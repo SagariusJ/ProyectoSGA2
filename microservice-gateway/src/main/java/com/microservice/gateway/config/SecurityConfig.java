@@ -46,6 +46,7 @@ public class SecurityConfig {
                         .pathMatchers("/api/proveedor/**").permitAll()
                         .pathMatchers("/api/compradet/**").permitAll()
                         .pathMatchers("/api/caja/**").permitAll()
+                        .pathMatchers("/api/fraccionamiento/**").permitAll()
                         // 4) El resto requiere JWT válido
                         .anyExchange().authenticated()
                 )
