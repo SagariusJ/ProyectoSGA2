@@ -19,6 +19,9 @@ public class Caja {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "usuario")
+    private Long usuarioId;
+
     @Column(name = "apertura")
     private LocalDate fechaApertura;
 
