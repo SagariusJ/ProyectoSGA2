@@ -8,25 +8,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/fraccionamiento")
+@RequestMapping("/api")
 public class FraccionamientoController {
 
     @Autowired
     IFraccionamientoService fraccionamientoService;
 
-    @PostMapping("/create")
+    @PostMapping("/fraccionamiento/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveFraccionamiento(@RequestBody Fraccionamiento fraccionamiento){fraccionamientoService.save(fraccionamiento);}
 
-    @GetMapping("/all")
+    @GetMapping("/fraccionamiento/all")
     public ResponseEntity<?> findAll(){return ResponseEntity.ok(fraccionamientoService.findAll());}
 
-    @GetMapping("/search/{id}")
+    @GetMapping("/fraccionamiento/search/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Long id){
         return ResponseEntity.ok(fraccionamientoService.findById(id));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/fraccionamiento/delete/{id}")
     public ResponseEntity<?> deleteFraccionamiento(@PathVariable("id") Long id){
         Fraccionamiento existingFrac = fraccionamientoService.findById(id);
         if(existingFrac == null){

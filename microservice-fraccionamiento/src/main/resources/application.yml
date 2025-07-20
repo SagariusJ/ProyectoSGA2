@@ -1,0 +1,52 @@
+server:
+  port: ${PORT:8087}
+  forward-headers-strategy: framework
+
+spring:
+  application:
+    name: ${FRACCIONAMIENTO_NAME}
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+eureka:
+  preferIpAddress: true
+  hostname: ${HOSTNAME:localhost}
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  zipkin:
+    tracing:
+      endpoint: ${TEMPO_HTTP_INGEST:http://tempo.railway.internal:4318/api/v2/spans}
+  endpoint:
+    health:
+      show:
+        details: "always"
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+  tracing:
+    sampling:
+      probability: 1.0
+  prometheus:
+    metrics:
+      export:
+        enabled: true
