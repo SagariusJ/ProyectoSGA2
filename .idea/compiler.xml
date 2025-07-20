@@ -8,11 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="microservice-gateway" />
-        <module name="microservice-sale" />
         <module name="microservice-inventory" />
+        <module name="microservice-caja" />
+        <module name="microservice-benefits" />
+        <module name="microservice-fraccionamiento" />
+        <module name="microservice-sale" />
         <module name="microservice-eureka" />
         <module name="microservice-authentication" />
-        <module name="microservice-benefits" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
