@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="microservice-gateway" />
+        <module name="microservice-informe" />
         <module name="microservice-inventory" />
         <module name="microservice-caja" />
         <module name="microservice-benefits" />
