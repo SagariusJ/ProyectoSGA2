@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "microservice-inventory", url = "https://microservice-inventory-production.up.railway.app")
 public interface InventoryClient {
 
-    @GetMapping("/api/products/{id}")
+    @GetMapping("/api/products/search/{id}")
     ProductDTO getProductById(@PathVariable("id") Long id);
 
 
-    @GetMapping("/api/warehouse/{id}")
+    @GetMapping("/api/warehouse/search/{id}")
     WarehouseDTO getWarehouseById(@PathVariable("id") Long id);
 }
