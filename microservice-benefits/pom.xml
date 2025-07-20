@@ -38,8 +38,6 @@
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
-
-		<!-- Observabilidad / trazabilidad -->
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-tracing-bridge-brave</artifactId>
@@ -53,7 +51,6 @@
 			<artifactId>loki-logback-appender</artifactId>
 			<version>1.5.2</version>
 		</dependency>
-
 		<!-- Utilidades -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
