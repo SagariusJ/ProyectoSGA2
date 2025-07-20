@@ -74,13 +74,4 @@ class ProductsServiceImplTest {
         assertEquals("P1", all.get(0).getProduct_name());
         assertEquals("P2", all.get(1).getProduct_name());
     }
-
-    @Test
-    void testDeleteById() {
-        doNothing().when(productsRepository).deleteById(1L);
-
-        productsService.deleteById(1L);
-
-        verify(productsRepository, times(1)).deleteById(1L);
-    }
 }

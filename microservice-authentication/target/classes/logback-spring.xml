@@ -12,7 +12,7 @@
             <label>
                 <pattern>
                     application=${appName},
-                    host=${INVENTORY_NAME},
+                    host=${AUTHENTICATION_NAME},
                     level=%level,
                     thread=%thread,
                     logger=%logger

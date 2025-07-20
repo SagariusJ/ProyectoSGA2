@@ -28,10 +28,24 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,prometheus,trace
+        include: "*"
+  zipkin:
+    tracing:
+      endpoint: ${TEMPO_HTTP_INGEST:http://tempo.railway.internal:4318/api/v2/spans}
+  endpoint:
+    health:
+      show:
+        details: "always"
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
   tracing:
     sampling:
       probability: 1.0
-    zipkin:
-      base-url: ${TEMPO_HTTP_INGEST}
-      enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
