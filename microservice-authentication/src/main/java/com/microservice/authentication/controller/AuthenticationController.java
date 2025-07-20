@@ -28,6 +28,15 @@ public class AuthenticationController {
         return "OK PUBLIC";
     }
 
+    @GetMapping("/auth/users")
+    public List<UserResponse> getAllNonAdminUsers() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("Usuario autenticado: " + authentication.getName());
+        System.out.println("Roles: " + authentication.getAuthorities());
+
+        return userService.getAllNonAdminUsers();
+    }
+
     @GetMapping("/auth/public/user/{userId}")
     public ResponseEntity<PublicUserResponse> getPublicUserById(@PathVariable("userId") Long userId) {
         System.out.println("Accediendo al endpoint público: /auth/public/user/" + userId);

@@ -89,5 +89,23 @@ public class UserService {
         );
     }
 
+    public List<UserResponse> getAllNonAdminUsers() {
+        Iterable<User> iterable = userRepository.findAll();
+
+        return StreamSupport.stream(iterable.spliterator(), false)
+                .map(user -> new UserResponse(
+                        user.getId(),
+                        user.getUsername(),
+                        user.getFullName(),
+                        user.getEmail(),
+                        user.getBirthDate(),
+                        user.getRegion(),
+                        user.getCommune(),
+                        user.getAddress(),
+                        user.getRole()
+                ))
+                .collect(Collectors.toList());
+    }
+
 
 }
