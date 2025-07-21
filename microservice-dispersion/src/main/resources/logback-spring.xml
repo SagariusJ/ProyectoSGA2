@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <jmxConfigurator/>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <springProperty scope="context" name="appName" source="spring.application.name"/>
+
+    <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
+        <http>
+            <url>http://loki.railway.internal:3100/loki/api/v1/push</url>
+        </http>
+        <format>
+            <label>
+                <pattern>
+                    application=${appName},
+                    host=${DISPERSION_NAME},
+                    level=%level,
+                    thread=%thread,
+                    logger=%logger
+                </pattern>
+            </label>
+            <message>
+
+                <pattern>
+                    {
+                    "timestamp": "%date{ISO8601}",
+                    "level": "%level",
+                    "thread": "%thread",
+                    "logger": "%logger",
+                    "class": "%class",
+                    "method": "%method",
+                    "line": "%line",
+                    "message": "%msg",
+                    "exception": "%ex{full}"
+                    }
+                </pattern>
+            </message>
+            <sortByTime>true</sortByTime>
+        </format>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="LOKI"/>
+    </root>
+</configuration>
