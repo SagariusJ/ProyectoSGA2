@@ -1,7 +1,6 @@
 package com.microservice.gateway.config;
 
 
-import com.sun.tools.javac.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -16,7 +15,7 @@ public class CorsGlobalConfiguration {
         CorsConfiguration corsConfig = new CorsConfiguration();
 
         // Orígenes permitidos — aquí colocas el URL de tu frontend Angular
-        corsConfig.setAllowedOrigins(List.of("https://proyectosgafront-production.up.railway.app"));
+        corsConfig.addAllowedOrigin("https://proyectosgafront-production.up.railway.app");
 
         // Métodos permitidos (GET, POST, PUT, DELETE, etc.)
         corsConfig.addAllowedMethod("*");
@@ -32,5 +31,4 @@ public class CorsGlobalConfiguration {
 
         return new CorsWebFilter(source);
     }
-
 }
