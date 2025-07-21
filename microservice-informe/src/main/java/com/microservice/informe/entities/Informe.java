@@ -1,6 +1,5 @@
 package com.microservice.informe.entities;
 
-import jakarta.persistence.*;
 import lombok.Data;
 import com.microservice.informe.dto.CompraDTO;
 import com.microservice.informe.dto.VentaDTO;
