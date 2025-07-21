@@ -45,8 +45,7 @@ public class InformeGenerator {
                 y = writeLine(contentStream,
                         "ID: " + compra.getId() +
                                 " | Fecha: " + compra.getFecha().format(formatter) +
-                                " | Monto: $" + formatDouble(compra.getTotal()) +
-                                " | Proveedor: " + compra.getProvider().getNombre(),
+                                " | Monto: $" + formatDouble(compra.getTotal()),
                         50, y, PDType1Font.HELVETICA, 12);
                 if (y < 50) break; // Si no hay espacio, detener
             }

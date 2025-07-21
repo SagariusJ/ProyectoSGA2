@@ -7,5 +7,4 @@ public class CompraDetailDTO {
     private Long id;
     private int cantidad;
     private double precio;
-    // Agrega otros campos si necesitas
 }
