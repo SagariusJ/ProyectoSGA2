@@ -85,6 +85,10 @@ spring:
           uri: https://microservice-informe-production.up.railway.app
           predicates:
               - Path=/api/informe/**
+        - id: dispersion
+          uri: https://microservice-dispersion-production.up.railway.app
+          predicates:
+              - Path=/api/dispersion/**
 
 
 management:
