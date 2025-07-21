@@ -25,6 +25,9 @@ public class DispersionServiceImpl implements IDispersionService{
 
     @Override
     public Dispersion save(Dispersion disp) {
+        System.out.println("Llamando producto con id: " + disp.getProductId());
+        System.out.println("Llamando paciente con id: " + disp.getPatientId());
+
         // Obtener datos del producto
         ProductsDTO products = productoClient.getProductById(disp.getProductId());
         // Obtener datos del paciente
